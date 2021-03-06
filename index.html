@@ -1,0 +1,64 @@
+<script>
+  const teclaParaNota = {
+    KeyA: "c4",
+    KeyS: "d4",
+    KeyD: "e4",
+    KeyF: "f4",
+    KeyG: "g4",
+    KeyH: "a4",
+    KeyJ: "b4",
+    KeyK: "c5",
+    KeyL: "d5",
+    Semicolon: "e5",
+  }
+
+  const notaParaFrequencia = {
+    pitagorico: {
+      c4: (261.63 * 1) / 1,
+      d4: (261.63 * 9) / 8,
+      e4: (261.63 * 81) / 64,
+      f4: (261.63 * 4) / 3,
+      g4: (261.63 * 3) / 2,
+      a4: (261.63 * 27) / 16,
+      b4: (261.63 * 243) / 128,
+      c5: ((261.63 * 1) / 1) * 2,
+      d5: ((261.63 * 9) / 8) * 2,
+      e5: ((261.63 * 81) / 64) * 2,
+    },
+    igual: {
+      c4: 261.63,
+      d4: 293.66,
+      e4: 329.63,
+      f4: 349.23,
+      g4: 392.0,
+      a4: 440.0,
+      b4: 493.88,
+      c5: 523.25,
+      d5: 587.33,
+      e5: 659.26,
+    },
+  }
+
+  let temperamento = "pitagorico"
+
+  document.addEventListener("keydown", (e) => {
+    if (e.altKey || e.ctrlKey || e.shiftKey) return
+
+    const nomeDaNota = teclaParaNota[e.code]
+    const freq = notaParaFrequencia[temperamento][nomeDaNota]
+
+    console.log(temperamento)
+
+    const context = new AudioContext()
+    const o = context.createOscillator()
+    const g = context.createGain()
+    o.connect(g)
+    g.connect(context.destination)
+    g.gain.value = 0.3
+
+    o.frequency.value = freq
+
+    o.start(0)
+    o.stop(3)
+  })
+</script>
