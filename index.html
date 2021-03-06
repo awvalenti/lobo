@@ -1,5 +1,5 @@
 <script>
-  const teclaParaNota = {
+  const keyToNote = {
     KeyA: "c4",
     KeyS: "d4",
     KeyD: "e4",
@@ -12,8 +12,8 @@
     Semicolon: "e5",
   }
 
-  const notaParaFrequencia = {
-    pitagorico: {
+  const noteToFreq = {
+    pythagorical: {
       c4: (261.63 * 1) / 1,
       d4: (261.63 * 9) / 8,
       e4: (261.63 * 81) / 64,
@@ -25,7 +25,7 @@
       d5: ((261.63 * 9) / 8) * 2,
       e5: ((261.63 * 81) / 64) * 2,
     },
-    igual: {
+    equal: {
       c4: 261.63,
       d4: 293.66,
       e4: 329.63,
@@ -39,15 +39,15 @@
     },
   }
 
-  let temperamento = "pitagorico"
+  let temperament = "pythagorical"
 
   document.addEventListener("keydown", (e) => {
     if (e.altKey || e.ctrlKey || e.shiftKey) return
 
-    const nomeDaNota = teclaParaNota[e.code]
-    const freq = notaParaFrequencia[temperamento][nomeDaNota]
+    const noteName = keyToNote[e.code]
+    const freq = noteToFreq[temperament][noteName]
 
-    console.log(temperamento)
+    console.log(temperament)
 
     const context = new AudioContext()
     const o = context.createOscillator()
